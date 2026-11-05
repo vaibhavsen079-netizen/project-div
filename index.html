@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Transivo | Move Everything</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <h2 class="logo">T<span>.</span> Transivo</h2>
+
+        <p class="menu-title">WORKSPACE</p>
+
+        <button class="nav-btn active" onclick="showPage('overview', this)">⌂ Overview</button>
+        <button class="nav-btn" onclick="showPage('transfer', this)">⇄ Transfer Center</button>
+        <button class="nav-btn" onclick="showPage('files', this)">▤ My Files</button>
+        <button class="nav-btn" onclick="showPage('storage', this)">◷ Storage Insights</button>
+        <button class="nav-btn" onclick="showPage('security', this)">◇ Security</button>
+
+        <div class="sidebar-bottom">
+            <p>Move everything.</p>
+            <small>Keep every memory.</small>
+        </div>
+    </div>
+
+    <main class="main">
+
+        <header class="topbar">
+            <span>My Workspace / <b id="pageName">Overview</b></span>
+            <span class="online">● System Ready</span>
+        </header>
+
+        <div class="content">
+
+            <section id="overview" class="page">
+
+                <p class="eyebrow">YOUR DIGITAL SPACE</p>
+
+                <h1>Everything, in one place.</h1>
+
+                <p class="subtitle">
+                    A smarter and simpler way to move your digital life.
+                </p>
+
+                <div class="hero">
+
+                    <div>
+                        <span class="tag">✦ YOUR NEW BEGINNING</span>
+
+                        <h2>Move your memories.<br>Keep your moments.</h2>
+
+                        <p>
+                            Bring your photos, videos and documents
+                            together in one simple workspace.
+                        </p>
+
+                        <button class="primary-btn"
+                        onclick="showPage('transfer')">
+                            Start a Transfer →
+                        </button>
+                    </div>
+
+                    <div class="hero-art">⇄</div>
+
+                </div>
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <p>Total Files</p>
+                        <h2 id="totalFiles">0</h2>
+                        <small>Selected files</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Storage Used</p>
+                        <h2 id="totalSize">0 MB</h2>
+                        <small>Selected file size</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Transfer Status</p>
+                        <h2 id="status">Ready</h2>
+                        <small>Demo status</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Destination</p>
+                        <h2 id="deviceStat">Android</h2>
+                        <small>Selected device</small>
+                    </div>
+
+                </div>
+
+            </section>
+            <section id="transfer" class="page hidden">
+
+                <p class="eyebrow">MOVE YOUR DIGITAL LIFE</p>
+
+                <h1>Transfer Center</h1>
+
+                <p class="subtitle">
+                    Select your destination and add your files.
+                </p>
+
+                <div class="panel">
+
+                    <h3>01. Select Destination</h3>
+
+                    <div class="devices">
+
+                        <button class="device selected"
+                        onclick="selectDevice('Android', this)">
+                            📱 Android
+                        </button>
+
+                        <button class="device"
+                        onclick="selectDevice('iPhone', this)">
+                            📱 iPhone
+                        </button>
+
+                        <button class="device"
+                        onclick="selectDevice('Computer', this)">
+                            💻 Computer
+                        </button>
+
+                    </div>
+
+                    <hr>
+
+                    <h3>02. Add Your Files</h3>
+
+                    <div class="upload-box">
+
+                        <div class="upload-icon">↑</div>
+
+                        <h3>Drop your files here</h3>
+
+                        <p>Photos, videos, PDFs and documents</p>
+
+                        <input type="file" id="fileInput" multiple hidden>
+
+                        <button class="primary-btn"
+                        onclick="document.getElementById('fileInput').click()">
+                            + Choose Files
+                        </button>
+
+                        <small>Files are selected locally in this browser.</small>
+
+                    </div>
+
+                    <h3 class="summary-title">Transfer Summary</h3>
+
+                    <p>Selected Files: <b id="summaryFiles">0</b></p>
+                    <p>Total Size: <b id="summarySize">0 MB</b></p>
+                    <p>Destination: <b id="summaryDevice">Android</b></p>
+
+                    <div class="progress-track">
+                        <div id="progressBar"></div>
+                    </div>
+
+                    <p id="progressText">0% completed</p>
+
+                    <button class="primary-btn"
+                    id="transferBtn"
+                    onclick="startTransfer()">
+                        Start Demo Transfer →
+                    </button>
+
+                    <p class="notice">
+                        This is a demonstration. It does not transfer files
+                        to another phone.
+                    </p>
+
+                </div>
+
+            </section>
+
+            <section id="files" class="page hidden">
+
+                <p class="eyebrow">YOUR COLLECTION</p>
+
+                <h1>My Files</h1>
+
+                <p class="subtitle">
+                    Search, download and manage your selected files.
+                </p>
+
+                <div class="panel">
+
+                    <input type="text"
+                    id="searchInput"
+                    placeholder="Search your files..."
+                    oninput="displayFiles()">
+
+                    <div class="table-container">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>FILE NAME</th>
+                                    <th>SIZE</th>
+                                    <th>TYPE</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="fileList">
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <p id="emptyMessage">No files selected yet.</p>
+
+                </div>
+
+            </section>
+            <section id="storage" class="page hidden">
+
+                <p class="eyebrow">UNDERSTAND YOUR FILES</p>
+
+                <h1>Storage Insights</h1>
+
+                <p class="subtitle">
+                    Understand how much space your selected files use.
+                </p>
+
+                <div class="panel">
+
+                    <p>Selected File Size</p>
+
+                    <h2 id="storageSize">0 MB</h2>
+
+                    <div class="progress-track">
+                        <div id="storageBar"></div>
+                    </div>
+
+                    <p id="storagePercentage">0% of illustrative 5 GB</p>
+
+                    <p class="notice">
+                        The 5 GB figure is only a visual reference.
+                        It is not your phone's actual storage limit.
+                    </p>
+
+                </div>
+
+            </section>
+
+            <section id="security" class="page hidden">
+
+                <p class="eyebrow">ACCOUNT SETTINGS</p>
+
+                <h1>Security Center</h1>
+
+                <p class="subtitle">
+                    Explore the sample security features.
+                </p>
+
+                <div class="panel">
+
+                    <h3>◇ Transfer PIN</h3>
+
+                    <p>Generate a sample six-digit PIN.</p>
+
+                    <h2 id="pinDisplay">------</h2>
+
+                    <button class="primary-btn" onclick="generatePIN()">
+                        Generate Demo PIN
+                    </button>
+
+                    <hr>
+
+                    <h3>✉ Email Connection</h3>
+
+                    <input type="email"
+                    id="emailInput"
+                    placeholder="Enter your email">
+
+                    <button class="primary-btn" onclick="checkEmail()">
+                        Check Email
+                    </button>
+
+                    <p id="emailMessage"></p>
+
+                    <p class="notice">
+                        These are demonstration features, not real authentication.
+                    </p>
+
+                </div>
+
+            </section>
+
+            <footer>
+                © 2026 Transivo. Move Everything, Simply.
+            </footer>
+
+        </div>
+
+    </main>
+
+    <div id="notification" class="notification"></div>
+
+
+    <canvas id="particles"></canvas>
+    <div class="cursor-glow"></div>
+
+    <header class="navbar">
+        <div class="logo">TRANSIVO<span>.</span></div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#files">My Files</a>
+        </nav>
+
+        <button class="nav-button" onclick="showMessage('Welcome to Transivo!')">
+            Get Started
+        </button>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-tag">
+                <span class="live-dot"></span>
+                SMART FILE TRANSFER PLATFORM
+            </div>
+
+            <h1>
+                Move everything.<br>
+                <span>Effortlessly.</span>
+            </h1>
+
+            <p>
+                Transfer, organize and manage your digital world
+                with a smarter and smoother experience.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="primary-button" onclick="startTransfer(this)">
+                    Start Transferring ↗
+                </button>
+
+                <button class="secondary-button" onclick="scrollToFiles()">
+                    Explore Files
+                </button>
+            </div>
+
+            <div class="hero-stats">
+                <div><strong>01</strong><span>Simple process</span></div>
+                <div><strong>02</strong><span>Smart workspace</span></div>
+                <div><strong>03</strong><span>Modern experience</span></div>
+            </div>
+        </section>
+
+        <section class="features" id="features">
+            <div class="section-heading">
+                <span>WHY TRANSIVO</span>
+                <h2>Everything in one place.</h2>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon">↗</div>
+                    <h3>Fast Transfer</h3>
+                    <p>A smooth transfer experience with an animated progress display.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">▤</div>
+                    <h3>Smart Organization</h3>
+                    <p>Keep your files organized in a clean digital workspace.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">◇</div>
+                    <h3>Privacy Focused</h3>
+                    <p>A simple interface designed with privacy in mind.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="files-section" id="files">
+            <div class="section-heading">
+                <span>YOUR WORKSPACE</span>
+                <h2>Explore your files.</h2>
+            </div>
+
+            <div class="file-toolbar">
+                <input type="text" id="searchInput" placeholder="Search your files...">
+                <label class="upload-button">
+                    + Add Files
+                    <input type="file" id="fileInput" multiple hidden>
+                </label>
+            </div>
+
+            <div class="file-list" id="fileList">
+                <div class="file-card reveal">
+                    <div class="file-symbol">▧</div>
+                    <div><h3>My Photos</h3><p>Image collection</p></div>
+                    <span>PHOTOS</span>
+                </div>
+
+                <div class="file-card reveal">
+                    <div class="file-symbol">▤</div>
+                    <div><h3>Study Documents</h3><p>PDF and documents</p></div>
+                    <span>DOCS</span>
+                </div>
+
+                <div class="file-card reveal">
+                    <div class="file-symbol">♫</div>
+                    <div><h3>My Music</h3><p>Audio collection</p></div>
+                    <span>AUDIO</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="transfer-section" id="transfer">
+            <div class="section-heading">
+                <span>TRANSFER CENTER</span>
+                <h2>Ready for your next move?</h2>
+            </div>
+
+            <div class="transfer-box">
+                <div class="device">📱<span>My Device</span></div>
+                <div class="transfer-arrow">⇄</div>
+                <div class="device">💻<span>Destination</span></div>
+
+                <div class="progress-area">
+                    <div class="progress-info">
+                        <span id="progressText">Waiting to start</span>
+                        <span id="progressNumber">0%</span>
+                    </div>
+
+                    <div class="progress-track">
+                        <div id="progressBar"></div>
+                    </div>
+                </div>
+
+                <button class="primary-button" onclick="startTransfer(this)">
+                    Start Demo Transfer
+                </button>
+
+                <p class="note">Demo only — no real device connection or transfer.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="logo">TRANSIVO<span>.</span></div>
+        <p>Move everything. Effortlessly.</p>
+        <p>© 2026 Transivo</p>
+    </footer>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
