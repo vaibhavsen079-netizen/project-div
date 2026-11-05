@@ -1,0 +1,13 @@
+Good morning, everyone!
+
+Today, I am going to introduce my website, **Transivo**.
+
+Transivo is a modern and user-friendly platform designed to make file management and file transfer easier. It provides a simple interface where users can explore files, search for documents, select files, and manage their file lists.
+
+Our main goal is to make the experience simple, fast, and convenient, with a clean design and smooth animations.
+
+We have focused on three important things: **simplicity, speed, and user experience.**
+
+In the future, we aim to improve Transivo with more advanced features and real device-to-device file transfer.
+
+Thank you!
